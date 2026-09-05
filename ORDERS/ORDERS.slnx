@@ -1,5 +1,4 @@
 <Solution>
-  <Folder Name="/Solution Items/" />
   <Project Path="../Orders.Frontend/Orders.Frontend.csproj" />
   <Project Path="Orders.Backend/Orders.Backend.csproj" />
   <Project Path="Orders.Shared/Orders.Shared.csproj" />
