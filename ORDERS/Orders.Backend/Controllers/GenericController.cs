@@ -74,7 +74,7 @@ public class GenericController<T> : Controller where T : class
         var action = await _unitOfWork.DeleteAsync(id);
         if (action.WasSuccess)
         {
-            return NoContent();    
+            return Ok(action.Result);
         }
         else
         {
