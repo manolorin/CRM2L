@@ -4,13 +4,9 @@ using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Interfaces;
 
-public interface IStatesRepository
+public interface ICitiesRepository
 {
-    Task<ActionResponse<State>> GetAsync(int id);
-
-    Task<ActionResponse<IEnumerable<State>>> GetAsync();
-
-    Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination);
+    Task<ActionResponse<IEnumerable<City>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 }

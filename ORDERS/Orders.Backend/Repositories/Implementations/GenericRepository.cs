@@ -3,6 +3,7 @@ using Orders.Backend.Data;
 using Orders.Backend.Helpers;
 using Orders.Backend.Repositories.Interfaces;
 using Orders.Shared.DTOs;
+using Orders.Shared.Entities;
 using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Implementations;
@@ -132,7 +133,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         Message = "El registro ya existe"
     };
 
-    public async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _entity.AsQueryable();
         return new ActionResponse<IEnumerable<T>>
@@ -144,7 +145,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         };
     }
 
-    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
     {
         var queryable = _entity.AsQueryable();
         double count = await queryable.CountAsync();
@@ -155,4 +156,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         };
 
     }
+
+    
 }

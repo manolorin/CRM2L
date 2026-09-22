@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orders.Backend.UnitsOfWork.Interfaces;
+using Orders.Shared.DTOs;
 using Orders.Shared.Entities;
 
 namespace Orders.Backend.Controllers;
@@ -15,6 +16,19 @@ public class CountriesController : GenericController<Country>
         _countriesUnitOfWork = countriesUnitOfWork;
     }
 
+    [HttpGet("paginated")]
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    {
+        var action = await _countriesUnitOfWork.GetAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        else
+        {
+            return BadRequest();
+        }
+    }
 
     [HttpGet]
     public  override async Task<IActionResult> GetAsync()

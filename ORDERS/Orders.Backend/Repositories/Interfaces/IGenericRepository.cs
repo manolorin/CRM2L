@@ -1,4 +1,5 @@
 ﻿using Orders.Shared.DTOs;
+using Orders.Shared.Entities;
 using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Interfaces;
@@ -16,4 +17,5 @@ public interface IGenericRepository<T> where T : class
     Task<ActionResponse<IEnumerable<T>>> GetAsync();
 
     Task<ActionResponse<T>> UpdateAsync(T entity);
+  
 }
