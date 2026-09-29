@@ -36,6 +36,11 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
                             .Include(x => x.States)
                             .AsQueryable(); 
 
+        if(!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
          return new ActionResponse<IEnumerable<Country>>()
         {
             WasSuccess = true,
@@ -67,4 +72,22 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
             Result = country
         };  
     }
+
+    public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Countries.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
+    }
+
 }

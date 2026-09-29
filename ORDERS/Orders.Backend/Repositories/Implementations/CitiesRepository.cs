@@ -21,6 +21,11 @@ public class CitiesRepository: GenericRepository<City>, ICitiesRepository
         var queryable = _context.Cities
                             .Where(x => x.State!.Id == pagination.Id)
                             .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+        }   
         return new ActionResponse<IEnumerable<City>>()
         {
             WasSuccess = true,
@@ -36,6 +41,11 @@ public class CitiesRepository: GenericRepository<City>, ICitiesRepository
         var queryable = _context.Cities
             .Where(x => x.State!.Id == pagination.Id)
             .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+        }
 
         double count = await queryable.CountAsync();
         return new ActionResponse<int>

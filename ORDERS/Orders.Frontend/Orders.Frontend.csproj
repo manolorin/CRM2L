@@ -17,4 +17,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Orders.Shared\Orders.Shared.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="wwwroot\Images\question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

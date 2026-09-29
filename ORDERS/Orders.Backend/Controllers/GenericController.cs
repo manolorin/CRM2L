@@ -98,7 +98,7 @@ public class GenericController<T> : Controller where T : class
         }
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public virtual async Task<IActionResult> DeleteAsync(int id)
     {
         var action = await _unitOfWork.DeleteAsync(id);
