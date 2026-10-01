@@ -7,7 +7,9 @@ namespace Orders.Frontend.Components.Pages.Countries;
 
 public partial class CountryCreate
 {
+   
     private Country country = new();
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = null!;
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -29,6 +31,7 @@ public partial class CountryCreate
 
     private void Return()
     {
-        NavigationManager.NavigateTo("/countries");
+        MudDialog.Cancel();
+        //NavigationManager.NavigateTo("/countries");
     }
 }
