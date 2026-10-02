@@ -24,7 +24,7 @@ public class CitiesRepository: GenericRepository<City>, ICitiesRepository
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
         }   
         return new ActionResponse<IEnumerable<City>>()
         {
@@ -44,7 +44,7 @@ public class CitiesRepository: GenericRepository<City>, ICitiesRepository
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.Name.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase));
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
         }
 
         double count = await queryable.CountAsync();

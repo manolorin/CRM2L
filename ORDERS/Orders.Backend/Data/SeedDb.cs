@@ -34,9 +34,17 @@ public class SeedDb
     {
         if (!_context.Categories.Any())
         {
+            _context.Categories.Add(new Category { Name = "AAA" });
+            _context.Categories.Add(new Category { Name = "BBB" });
+            _context.Categories.Add(new Category { Name = "CCC" });
+            _context.Categories.Add(new Category { Name = "DDD" });
+            _context.Categories.Add(new Category { Name = "EEE" });
             _context.Categories.Add(new Category { Name = "Espectáculos" });
             _context.Categories.Add(new Category { Name = "Financiera" });
+            _context.Categories.Add(new Category { Name = "Industria" });
             _context.Categories.Add(new Category { Name = "Politica" });
+            _context.Categories.Add(new Category { Name = "Retail" });
+            _context.Categories.Add(new Category { Name = "Salud" });
             await _context.SaveChangesAsync();
         }
     }
