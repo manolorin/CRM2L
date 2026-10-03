@@ -25,6 +25,7 @@ public class SeedDb
         if (!_context.Countries.Any())
         {
             var countriesSQLScript = System.IO.File.ReadAllText("Data/CountriesStatesCities.sql");
+            _context.Database.SetCommandTimeout(300); // Set timeout to 5 minutes
             await _context.Database.ExecuteSqlRawAsync(countriesSQLScript);
         }
     }   
