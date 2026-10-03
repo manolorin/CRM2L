@@ -32,6 +32,6 @@ public partial class CountryCreate
     private void Return()
     {
         MudDialog.Cancel();
-        //NavigationManager.NavigateTo("/countries");
+        NavigationManager.NavigateTo("/countries");
     }
 }

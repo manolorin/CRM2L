@@ -19,11 +19,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <Content Update="wwwroot\Images\question.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
