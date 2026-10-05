@@ -3,6 +3,7 @@ using MudBlazor.Services;
 using Orders.Frontend.AuthenticationProviders;
 using Orders.Frontend.Components;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,11 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSingleton(_ => new HttpClient { BaseAddress = new Uri("https://localhost:7184/") });
 builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
+//Aqui va todo el servicio de seguridad
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<AuthenticationProviderJWT>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
 
 var app = builder.Build();
 
