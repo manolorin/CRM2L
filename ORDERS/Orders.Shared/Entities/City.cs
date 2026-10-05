@@ -1,6 +1,8 @@
-﻿using Orders.Shared.Interfaces;
+﻿using Microsoft.VisualBasic;
+using Orders.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -19,4 +21,5 @@ public class City: IEntityWithName
 
     public int StateId { get; set; }
     public State? State { get; set; } 
+    public Collection<User>? Users { get; set; } 
 }
