@@ -36,6 +36,12 @@ public class CitiesRepository: GenericRepository<City>, ICitiesRepository
         };
     }
 
+    public async Task<IEnumerable<City>> GetComboAsync(int stateId) => await 
+            _context.Cities
+            .Where(x => x.StateId == stateId)
+            .OrderBy(x => x.Name)
+            .ToListAsync();
+
     public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
     {
         var queryable = _context.Cities

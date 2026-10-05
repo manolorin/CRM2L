@@ -77,4 +77,12 @@ public class CountriesController : GenericController<Country>
         }
 
     }
+
+    [AllowAnonymous]
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetComboAsync()
+    {
+        var categories = await _countriesUnitOfWork.GetComboAsync();
+        return Ok(categories);
+    }
 }

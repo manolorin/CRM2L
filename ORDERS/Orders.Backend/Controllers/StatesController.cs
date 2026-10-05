@@ -60,6 +60,12 @@ public class StatesController : GenericController<State>
         }
         
     }
+    [AllowAnonymous]
+    [HttpGet("combo/{countryId:int}")]
+    public async Task<IActionResult> GetComboAsync(int countryId)
+    {
+        return Ok(await _statesUnitOfWork.GetComboAsync(countryId));
+    }
 
 
     [HttpGet("totalRecords")]

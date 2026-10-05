@@ -15,8 +15,12 @@ public class CategoriesUnitOfWork: GenericUnitOfWork<Category>, ICategoriesUnitO
         _categoriesRepository = categoriesRepository;
     }
     public override async Task<ActionResponse<IEnumerable<Category>>> GetAsync(PaginationDTO pagination) => await
-    _categoriesRepository.GetAsync(pagination);
+        _categoriesRepository.GetAsync(pagination);
+
+    public async Task<IEnumerable<Category>> GetComboAsync() => await
+         _categoriesRepository.GetComboAsync();
+    
 
     public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await
-    _categoriesRepository.GetTotalRecordsAsync(pagination);
+        _categoriesRepository.GetTotalRecordsAsync(pagination);
 }

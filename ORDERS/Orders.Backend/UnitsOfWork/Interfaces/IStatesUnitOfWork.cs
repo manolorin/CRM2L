@@ -12,5 +12,7 @@ public interface IStatesUnitOfWork
 
     Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination);
 
+    Task<IEnumerable<State>> GetComboAsync(int countryId);
+
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 }

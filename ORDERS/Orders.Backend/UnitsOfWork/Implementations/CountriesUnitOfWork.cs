@@ -24,6 +24,10 @@ public class CountriesUnitOfWork : GenericUnitOfWork<Country>, ICountriesUnitOfW
     public override async Task<ActionResponse<Country>> GetAsync(int id) => await
     _countriesRepository.GetAsync(id);
 
+    public async Task<IEnumerable<Country>> GetComboAsync() =>
+     await _countriesRepository.GetComboAsync();
+    
+
     public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await
     _countriesRepository.GetTotalRecordsAsync(pagination);
 

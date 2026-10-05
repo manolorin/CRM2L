@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Orders.Backend.UnitsOfWork.Implementations;
 using Orders.Backend.UnitsOfWork.Interfaces;
 using Orders.Shared.DTOs;
@@ -31,6 +32,13 @@ public class CitiesController : GenericController<City>
         }
 
     }
+    [AllowAnonymous]
+    [HttpGet("combo/{stateId:int}")]
+    public async Task<IActionResult> GetComboAsync(int stateId)
+    {
+        return Ok(await _citiesUnitOfWork.GetComboAsync(stateId));
+    }
+
 
 
     [HttpGet("totalRecords")]
