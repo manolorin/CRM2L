@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using Orders.Frontend.Repositories;
 using Orders.Frontend.Services;
@@ -47,11 +46,6 @@ public partial class Register
         imageUrl = null;
     }
 
-    private void OnImageSelected(IBrowserFile file)
-    {
-        // Aquí manejas el archivo de la imagen seleccionada
-    }
-
     private async Task LoadCountriesAsync()
     {
         var responseHttp = await Repository.GetAsync<List<Country>>("/api/countries/combo");
@@ -64,7 +58,7 @@ public partial class Register
         countries = responseHttp.Response;
     }
 
-    private async Task LoadStatesAsync(int countryId)
+    private async Task LoadStatesAsyn(int countryId)
     {
         var responseHttp = await Repository.GetAsync<List<State>>($"/api/states/combo/{countryId}");
         if (responseHttp.Error)
@@ -76,7 +70,7 @@ public partial class Register
         states = responseHttp.Response;
     }
 
-    private async Task LoadCitiesAsync(int stateId)
+    private async Task LoadCitiesAsyn(int stateId)
     {
         var responseHttp = await Repository.GetAsync<List<City>>($"/api/cities/combo/{stateId}");
         if (responseHttp.Error)
@@ -95,7 +89,7 @@ public partial class Register
         selectedCity = new City();
         states = null;
         cities = null;
-        await LoadStatesAsync(country.Id);
+        await LoadStatesAsyn(country.Id);
     }
 
     private async Task StateChangedAsync(State state)
@@ -103,7 +97,7 @@ public partial class Register
         selectedState = state;
         selectedCity = new City();
         cities = null;
-        await LoadCitiesAsync(state.Id);
+        await LoadCitiesAsyn(state.Id);
     }
 
     private void CityChanged(City city)
@@ -169,7 +163,7 @@ public partial class Register
             return;
         }
 
-        userDTO.UserType = UserType.Aux;
+        userDTO.UserType = UserType.User;
         userDTO.UserName = userDTO.Email;
 
         if (IsAdmin)

@@ -2,7 +2,7 @@
 
 namespace Orders.Frontend.Repositories;
 
-public class HttpResponseWrapper<T> 
+public class HttpResponseWrapper<T>
 {
     public HttpResponseWrapper(T? response, bool error, HttpResponseMessage httpResponseMessage)
     {

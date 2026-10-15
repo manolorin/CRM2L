@@ -8,7 +8,7 @@ public class GenericController<T> : Controller where T : class
 {
     private readonly IGenericUnitOfWork<T> _unitOfWork;
 
-    public GenericController(IGenericUnitOfWork<T> unitOfWork )
+    public GenericController(IGenericUnitOfWork<T> unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -21,14 +21,10 @@ public class GenericController<T> : Controller where T : class
         {
             return Ok(action.Result);
         }
-        else
-        {
-            return BadRequest(action.Message);
-        }
-
+        return BadRequest();
     }
 
-    [HttpGet("totalrecords")]
+    [HttpGet("totalRecords")]
     public virtual async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
@@ -36,10 +32,7 @@ public class GenericController<T> : Controller where T : class
         {
             return Ok(action.Result);
         }
-        else
-        {
-            return BadRequest(action.Message);
-        }
+        return BadRequest();
     }
 
     [HttpGet]
@@ -50,12 +43,8 @@ public class GenericController<T> : Controller where T : class
         {
             return Ok(action.Result);
         }
-        else {
-            return BadRequest(action.Message);
-        }
-        
+        return BadRequest(action.Message);
     }
-
 
     [HttpGet("{id}")]
     public virtual async Task<IActionResult> GetAsync(int id)
@@ -65,37 +54,29 @@ public class GenericController<T> : Controller where T : class
         {
             return Ok(action.Result);
         }
-        else {
-            return NotFound();
-        }
-        
+        return NotFound();
     }
 
     [HttpPost]
-    public virtual async Task<IActionResult> PostAsync(T entity)
+    public virtual async Task<IActionResult> PostAsync(T model)
     {
-        var action = await _unitOfWork.AddAsync(entity);
+        var action = await _unitOfWork.AddAsync(model);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
         }
-        else {
-            return BadRequest(action.Message);
-        }
-        
+        return BadRequest(action.Message);
     }
 
     [HttpPut]
-    public virtual async Task<IActionResult> PutAsync(T entity)
+    public virtual async Task<IActionResult> PutAsync(T model)
     {
-        var action = await _unitOfWork.UpdateAsync(entity);
+        var action = await _unitOfWork.UpdateAsync(model);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
         }
-        else {
-            return BadRequest(action.Message);
-        }
+        return BadRequest(action.Message);
     }
 
     [HttpDelete("{id}")]
@@ -104,11 +85,8 @@ public class GenericController<T> : Controller where T : class
         var action = await _unitOfWork.DeleteAsync(id);
         if (action.WasSuccess)
         {
-            return Ok(action.Result);
+            return NoContent();
         }
-        else
-        {
-            return BadRequest(action.Message);
-        }
-    }   
+        return BadRequest(action.Message);
+    }
 }

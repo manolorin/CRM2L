@@ -1,15 +1,12 @@
-﻿﻿@if (state is null)
+﻿@if (state is null)
 {
     <Loading />
 }
 else
 {
-    ﻿<MudDialog>
+    <MudDialog>
         <DialogContent>
-            <FormWithName Label="Estado"
-                          Model="state"
-                          OnValidSubmit="EditAsync"
-                          ReturnAction="Return" />
+            <FormWithName Label="Estado:" Model="state" OnValidSubmit="EditAsync" ReturnAction="Return" />
         </DialogContent>
     </MudDialog>
 }

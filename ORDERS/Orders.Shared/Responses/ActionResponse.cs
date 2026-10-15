@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Orders.Shared.Responses;
 
-namespace Orders.Shared.Responses
+public class ActionResponse<T>
 {
-    public class ActionResponse<T>
-    {
-        public bool WasSuccess { get; set; }
-        public string Message { get; set; } = null!;
-        public T? Result { get; set; }
-    }
-   
+    public bool WasSuccess { get; set; }
+
+    public string? Message { get; set; }
+
+    public T? Result { get; set; }
 }

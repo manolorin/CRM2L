@@ -7,13 +7,12 @@ namespace Orders.Frontend.Components.Pages.Cities;
 
 public partial class CityCreate
 {
-
     private City city = new();
-    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = null!;
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
+
     [Parameter] public int StateId { get; set; }
 
     private async Task CreateAsync()
@@ -33,8 +32,6 @@ public partial class CityCreate
 
     private void Return()
     {
-        MudDialog.Cancel();
         NavigationManager.NavigateTo($"/states/details/{StateId}");
     }
-
 }

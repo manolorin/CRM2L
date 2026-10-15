@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Orders.Backend.UnitsOfWork.Implementations;
 using Orders.Backend.UnitsOfWork.Interfaces;
 using Orders.Shared.DTOs;
 using Orders.Shared.Entities;
+
 namespace Orders.Backend.Controllers;
 
 [ApiController]
@@ -13,10 +13,19 @@ namespace Orders.Backend.Controllers;
 public class CategoriesController : GenericController<Category>
 {
     private readonly ICategoriesUnitOfWork _categoriesUnitOfWork;
+
     public CategoriesController(IGenericUnitOfWork<Category> unit, ICategoriesUnitOfWork categoriesUnitOfWork) : base(unit)
     {
         _categoriesUnitOfWork = categoriesUnitOfWork;
     }
+
+    [AllowAnonymous]
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetComboAsync()
+    {
+        return Ok(await _categoriesUnitOfWork.GetComboAsync());
+    }
+
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
@@ -27,13 +36,6 @@ public class CategoriesController : GenericController<Category>
         }
         return BadRequest();
     }
-    [AllowAnonymous]
-    [HttpGet("combo")]
-    public async Task<IActionResult> GetComboAsync()
-    {
-        return Ok(await _categoriesUnitOfWork.GetComboAsync());
-    }
-
 
     [HttpGet("totalRecords")]
     public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
@@ -46,4 +48,3 @@ public class CategoriesController : GenericController<Category>
         return BadRequest();
     }
 }
-

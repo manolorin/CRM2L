@@ -107,12 +107,11 @@ public partial class CountriesIndex
             var parameters = new DialogParameters
             {
                 { "Id", id }
-            }; dialog = await DialogService.ShowAsync<CountryEdit>("Editar paÃ­s", parameters, options);
+            }; dialog = await DialogService.ShowAsync<CountryEdit>("Editar país", parameters, options);
         }
         else
         {
-            dialog = await DialogService.ShowAsync<CountryCreate>("Nuevo paÃ­s", options);
-           
+            dialog = await DialogService.ShowAsync<CountryCreate>("Nuevo país", options);
         }
 
         var result = await dialog.Result;
@@ -121,17 +120,13 @@ public partial class CountriesIndex
             await LoadTotalRecordsAsync();
             await table.ReloadServerData();
         }
-        else
-        {
-            dialog.Close();
-        }
     }
 
     private async Task DeleteAsync(Country country)
     {
         var parameters = new DialogParameters
         {
-            { "Message", $"Estas seguro de borrar el paÃ­s: {country.Name}" }
+            { "Message", $"Estas seguro de borrar el país: {country.Name}" }
         };
         var options = new DialogOptions
         {
@@ -139,7 +134,7 @@ public partial class CountriesIndex
             MaxWidth = MaxWidth.ExtraSmall,
             CloseOnEscapeKey = true
         };
-        var dialog = await DialogService.ShowAsync<ConfirmDialog>("ConfirmaciÃ³n", parameters, options);
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("Confirmación", parameters, options);
         var result = await dialog.Result;
         if (result!.Canceled)
         {

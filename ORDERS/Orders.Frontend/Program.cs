@@ -8,31 +8,27 @@ using Orders.Frontend.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMudServices();
-
-
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddSingleton(_ => new HttpClient { BaseAddress = new Uri("https://localhost:7184/") });
-builder.Services.AddAuthorizationCore();
-//Aqui va todo el servicio de seguridad
+builder.Services.AddSingleton(_ => new HttpClient { BaseAddress = new Uri("https://localhost:7109") });
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddAuthorizationCore();
+
 builder.Services.AddScoped<AuthenticationProviderJWT>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
 builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
 
 var app = builder.Build();
 
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+
 app.UseHttpsRedirection();
 app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
 app.Run();

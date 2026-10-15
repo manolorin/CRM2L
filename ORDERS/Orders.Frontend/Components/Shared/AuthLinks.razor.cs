@@ -8,6 +8,7 @@ namespace Orders.Frontend.Components.Shared;
 public partial class AuthLinks
 {
     private string? photoUser;
+
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
@@ -46,5 +47,4 @@ public partial class AuthLinks
         var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
         DialogService.ShowAsync<Register>("Registar Usuario", closeOnEscapeKey);
     }
-
 }

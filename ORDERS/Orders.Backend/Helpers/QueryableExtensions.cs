@@ -1,5 +1,5 @@
-﻿
-using Orders.Shared.DTOs;
+﻿using Orders.Shared.DTOs;
+
 namespace Orders.Backend.Helpers;
 
 public static class QueryableExtensions
@@ -8,7 +8,6 @@ public static class QueryableExtensions
     {
         return queryable
             .Skip((pagination.Page - 1) * pagination.RecordsNumber)
-            .Take(pagination.RecordsNumber); 
+            .Take(pagination.RecordsNumber);
     }
-
 }

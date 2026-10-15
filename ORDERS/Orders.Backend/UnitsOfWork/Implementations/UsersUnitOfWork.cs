@@ -8,7 +8,6 @@ namespace Orders.Backend.UnitsOfWork.Implementations;
 
 public class UsersUnitOfWork : IUsersUnitOfWork
 {
-
     private readonly IUsersRepository _usersRepository;
 
     public UsersUnitOfWork(IUsersRepository usersRepository)
@@ -16,30 +15,23 @@ public class UsersUnitOfWork : IUsersUnitOfWork
         _usersRepository = usersRepository;
     }
 
+    public async Task<User> GetUserAsync(Guid userId) => await _usersRepository.GetUserAsync(userId);
+
+    public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword) => await _usersRepository.ChangePasswordAsync(user, currentPassword, newPassword);
+
+    public async Task<IdentityResult> UpdateUserAsync(User user) => await _usersRepository.UpdateUserAsync(user);
+
     public async Task<SignInResult> LoginAsync(LoginDTO model) => await _usersRepository.LoginAsync(model);
 
     public async Task LogoutAsync() => await _usersRepository.LogoutAsync();
-    public async Task<IdentityResult?> AddUserAsync(User user, string password) =>
-     await _usersRepository.AddUserAsync(user, password);
 
+    public async Task<IdentityResult> AddUserAsync(User user, string password) => await _usersRepository.AddUserAsync(user, password);
 
-    public Task AddUserToRoleAsync(User user, string roleName) =>
-        _usersRepository.AddUserToRoleAsync(user, roleName);
+    public async Task AddUserToRoleAsync(User user, string roleName) => await _usersRepository.AddUserToRoleAsync(user, roleName);
 
+    public async Task CheckRoleAsync(string roleName) => await _usersRepository.CheckRoleAsync(roleName);
 
-    public Task CheckRoleAsync(string roleName) =>
-        _usersRepository.CheckRoleAsync(roleName);
+    public async Task<User> GetUserAsync(string email) => await _usersRepository.GetUserAsync(email);
 
-
-    public Task<User> GetUserAsync(string email) =>
-        _usersRepository.GetUserAsync(email);
-
-
-    public Task<bool> IsUserInRoleAsync(User user, string roleName) =>
-        _usersRepository.IsUserInRoleAsync(user, roleName);
-
-    public Task<SignInResult> SignInUserAsync(LoginDTO model)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<bool> IsUserInRoleAsync(User user, string roleName) => await _usersRepository.IsUserInRoleAsync(user, roleName);
 }

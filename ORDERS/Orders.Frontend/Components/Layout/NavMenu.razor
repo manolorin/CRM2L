@@ -1,9 +1,12 @@
-﻿
-<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>    
-    <MudNavLink Href="categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">Categorías</MudNavLink>
-    <MudNavLink Href="countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Países</MudNavLink>
-   
+﻿<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Inicio</MudNavLink>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <MudNavLink Href="categories" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Category">Categorias</MudNavLink>
+            <MudNavLink Href="countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Países</MudNavLink>
+            <MudNavLink Href="prospects" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.DataSaverOn">Prospectos</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
 </MudNavMenu>
 
 

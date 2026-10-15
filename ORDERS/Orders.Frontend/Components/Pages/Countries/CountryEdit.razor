@@ -1,16 +1,12 @@
-﻿
 ﻿@if (country is null)
 {
     <Loading />
 }
 else
 {
-    ﻿<MudDialog>
+    <MudDialog>
         <DialogContent>
-            <FormWithName Label="País"
-                          Model="country"
-                          OnValidSubmit="EditAsync"
-                          ReturnAction="Return" />
+            <FormWithName Label="País:" Model="country" OnValidSubmit="EditAsync" ReturnAction="Return" />
         </DialogContent>
     </MudDialog>
 }

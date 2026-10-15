@@ -1,0 +1,72 @@
+﻿@using Orders.Shared.Entities
+@page "/Prospect/ProspectEdit/{Id:int}"
+@if (prospect is null)
+{
+    <Loading />
+}
+else
+{
+    <EditForm Model="prospect"
+    OnValidSubmit="EditAsync"
+    OnInvalidSubmit="InvalidForm"
+    FormName="ProspectEdit">
+        <DataAnnotationsValidator />
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudCardContent>
+                    <MudTextField Label="Nombre"
+                    @bind-Value="prospect.Name"
+                    For="@(() => prospect.Name)" />
+                    <MudTextField Label="Direccion"
+                    @bind-Value="prospect.Address"
+                    For="@(() => prospect.Address)" />
+                </MudCardContent>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudCardContent>
+                    <MudAutocomplete T="Country"
+                                     Label="País"
+                                     Placeholder="--Seleccione un País--"
+                                     SearchFunc="SearchCountries"
+                                     Value="selectedCountry"
+                                     ValueChanged="CountryChangedAsync"
+                                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                    <MudAutocomplete T="State"
+                    Label="Estado"
+                    Placeholder="--Seleccione un Estado--"
+                    SearchFunc="SearchStates"
+                    Value="selectedState"
+                    ValueChanged="StateChangedAsync"
+                    ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                    <MudAutocomplete T="City"
+                    Label="Ciudad"
+                    Placeholder="--Seleccione una Ciudad--"
+                    SearchFunc="SearchCity"
+                    Value="selectedCity"
+                    ValueChanged="CityChanged"
+                    ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                </MudCardContent>
+            </MudItem>
+            <MudItem xs="12" Class="d-flex justify-center mt-2">
+                <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" OnClick="ReturnAction" Class="ms-2 me-2 mb-2">
+                    Regresar
+                </MudButton>
+                <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Primary" ButtonType="ButtonType.Submit" Class="mb-2">
+                    Guardar
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+}

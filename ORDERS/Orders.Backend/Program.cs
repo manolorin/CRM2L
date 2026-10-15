@@ -4,17 +4,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Orders.Backend.Data;
+using Orders.Backend.Helpers;
 using Orders.Backend.Repositories.Implementations;
 using Orders.Backend.Repositories.Interfaces;
 using Orders.Backend.UnitsOfWork.Implementations;
 using Orders.Backend.UnitsOfWork.Interfaces;
 using Orders.Shared.Entities;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Orders Backend", Version = "v1" });
@@ -46,31 +50,36 @@ builder.Services.AddSwaggerGen(c =>
           }
         });
 });
-builder.Services.AddDbContext<DataContext>(motordb =>motordb.UseSqlServer("name=LocalConnection"));
+
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddTransient<SeedDb>();
+builder.Services.AddScoped<IFileStorage, FileStorage>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x=> x.TokenValidationParameters = new TokenValidationParameters 
+    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer=false,
+        ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = true,
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JwtKey"]!)),
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
         ClockSkew = TimeSpan.Zero
     });
 
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+builder.Services.AddScoped<IProspectsRepository, ProspectsRepository>();
 builder.Services.AddScoped<IStatesRepository, StatesRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
-
-builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();  
-builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();  
+builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
+builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();
 builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
+builder.Services.AddScoped<IProspectsUnitOfWork, ProspectsUnitOfWork>();
 builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
@@ -78,27 +87,25 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
     x.User.RequireUniqueEmail = true;
     x.Password.RequireDigit = false;
-    x.Password.RequireLowercase = false;
     x.Password.RequiredUniqueChars = 0;
+    x.Password.RequireLowercase = false;
     x.Password.RequireNonAlphanumeric = false;
     x.Password.RequireUppercase = false;
-    x.Password.RequiredLength = 6;
 })
-.AddEntityFrameworkStores<DataContext>()
-.AddDefaultTokenProviders();
-
-
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
+
 SeedData(app);
 
 void SeedData(WebApplication app)
 {
     var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
     using var scope = scopedFactory!.CreateScope();
     var service = scope.ServiceProvider.GetService<SeedDb>();
     service!.SeedAsync().Wait();
-
 }
 
 if (app.Environment.IsDevelopment())

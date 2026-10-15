@@ -7,7 +7,7 @@ public partial class InputImg
 {
     private string? imageBase64;
 
-    [Parameter] public string Label { get; set; } = "ImagÃ©n";
+    [Parameter] public string Label { get; set; } = "Imagén";
     [Parameter] public string? ImageURL { get; set; }
     [Parameter] public EventCallback<string> ImageSelected { get; set; }
 

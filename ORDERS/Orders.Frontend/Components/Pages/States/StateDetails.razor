@@ -1,4 +1,4 @@
-﻿@page "/states/details/{StateId:int}" 
+﻿@page "/states/details/{StateId:int}"
 
 @if (loading)
 {
@@ -27,7 +27,6 @@ else
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Ciudad">@context.Name</MudTd>
-
             <MudTd DataLabel="Acciones">
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"

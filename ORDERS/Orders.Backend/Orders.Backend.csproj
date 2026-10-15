@@ -7,16 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20260905232800_InitialDB.cs" />
+    <Compile Remove="Migrations\20260905232800_InitialDB.Designer.cs" />
+    <Compile Remove="Migrations\20260907022440_Categories.cs" />
+    <Compile Remove="Migrations\20260907022440_Categories.Designer.cs" />
+    <Compile Remove="Migrations\20260908184101_AddStatesAndCities.cs" />
+    <Compile Remove="Migrations\20260908184101_AddStatesAndCities.Designer.cs" />
+    <Compile Remove="Migrations\20260915224414_City.cs" />
+    <Compile Remove="Migrations\20260915224414_City.Designer.cs" />
+    <Compile Remove="Migrations\20261005004000_AddUserEntities.cs" />
+    <Compile Remove="Migrations\20261005004000_AddUserEntities.Designer.cs" />
+    <Compile Remove="Migrations\20261008203735_Prospects.cs" />
+    <Compile Remove="Migrations\20261008203735_Prospects.Designer.cs" />
+    <Compile Remove="Migrations\20261009001409_ProspectsV1.cs" />
+    <Compile Remove="Migrations\20261009001409_ProspectsV1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.26.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
   </ItemGroup>
 
   <ItemGroup>

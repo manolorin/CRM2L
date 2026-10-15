@@ -6,13 +6,13 @@ namespace Orders.Backend.UnitsOfWork.Interfaces;
 
 public interface IStatesUnitOfWork
 {
-    Task<ActionResponse<State>> GetAsync(int id);
-
-    Task<ActionResponse<IEnumerable<State>>> GetAsync();
+    Task<IEnumerable<State>> GetComboAsync(int countryId);
 
     Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination);
 
-    Task<IEnumerable<State>> GetComboAsync(int countryId);
-
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<State>> GetAsync(int id);
+
+    Task<ActionResponse<IEnumerable<State>>> GetAsync();
 }

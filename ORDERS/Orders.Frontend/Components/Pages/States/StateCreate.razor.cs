@@ -7,13 +7,12 @@ namespace Orders.Frontend.Components.Pages.States;
 
 public partial class StateCreate
 {
-
     private State state = new();
-    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = null!;
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
+
     [Parameter] public int CountryId { get; set; }
 
     private async Task CreateAsync()
@@ -33,7 +32,6 @@ public partial class StateCreate
 
     private void Return()
     {
-        MudDialog.Cancel();
         NavigationManager.NavigateTo($"/countries/details/{CountryId}");
     }
 }

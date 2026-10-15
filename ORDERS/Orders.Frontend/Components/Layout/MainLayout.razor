@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudThemeProvider Theme="@_theme" IsDarkMode="!_isDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -18,17 +18,9 @@
         <NavMenu />
     </MudDrawer>
     <MudMainContent Class="pt-16 pa-4">
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-4">
-            @Body
-        </MudContainer>
-        <MudFooter Class="py-3 mt-auto bg-light text-center">
-            <MudContainer MaxWidth="MaxWidth.Medium">
-                <MudText Typo="Typo.body2" Color="Color.Tertiary" Align="Align.Center">
-                    &copy; @DateTime.Now.Year - Desarrollado por <b>@Author</b> | Diseñado por <b>@Designer</b>
-                </MudText>
-            </MudContainer>
-        </MudFooter>
+        @Body
     </MudMainContent>
+
 </MudLayout>
 
 

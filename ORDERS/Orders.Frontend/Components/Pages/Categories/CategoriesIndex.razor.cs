@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Orders.Frontend.Components.Pages.Countries;
 using Orders.Frontend.Components.Shared;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
@@ -8,6 +8,7 @@ using System.Net;
 
 namespace Orders.Frontend.Components.Pages.Categories;
 
+[Authorize(Roles = "Admin")]
 public partial class CategoriesIndex
 {
     private List<Category>? Categories { get; set; }
@@ -28,11 +29,6 @@ public partial class CategoriesIndex
     protected override async Task OnInitializedAsync()
     {
         await LoadTotalRecordsAsync();
-    }
-
-    private void StatesAction(Category category)
-    {
-        NavigationManager.NavigateTo($"/categories/details/{category.Id}");
     }
 
     private async Task LoadTotalRecordsAsync()
@@ -106,12 +102,11 @@ public partial class CategoriesIndex
             var parameters = new DialogParameters
             {
                 { "Id", id }
-            }; dialog = await DialogService.ShowAsync<CategoryEdit>("Editar categorÃ­a", parameters, options);
+            }; dialog = await DialogService.ShowAsync<CategoryEdit>("Editar categoría", parameters, options);
         }
         else
         {
-            dialog = await DialogService.ShowAsync<CategoryCreate>("Nueva categorÃ­a", options);
-
+            dialog = await DialogService.ShowAsync<CategoryCreate>("Nuevo categoría", options);
         }
 
         var result = await dialog.Result;
@@ -120,25 +115,16 @@ public partial class CategoriesIndex
             await LoadTotalRecordsAsync();
             await table.ReloadServerData();
         }
-        else
-        {
-            dialog.Close();
-        }
     }
 
     private async Task DeleteAsync(Category category)
     {
         var parameters = new DialogParameters
         {
-            { "Message", $"Estas seguro de borrar la categorÃ­a: {category.Name}" }
+            { "Message", $"Estas seguro de borrar la categoría: {category.Name}" }
         };
-        var options = new DialogOptions
-        {
-            CloseButton = true,
-            MaxWidth = MaxWidth.ExtraSmall,
-            CloseOnEscapeKey = true
-        };
-        var dialog = await DialogService.ShowAsync<ConfirmDialog>("ConfirmaciÃ³n", parameters, options);
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+        var dialog = await DialogService.ShowAsync<ConfirmDialog>("Confirmación", parameters, options);
         var result = await dialog.Result;
         if (result!.Canceled)
         {

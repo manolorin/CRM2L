@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Orders.Shared.DTOs;
 
@@ -19,4 +14,3 @@ public class LoginDTO
     [MinLength(6, ErrorMessage = "El campo {0} debe tener al menos {1} carácteres.")]
     public string Password { get; set; } = null!;
 }
-

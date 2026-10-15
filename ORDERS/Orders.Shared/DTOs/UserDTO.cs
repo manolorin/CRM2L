@@ -1,12 +1,8 @@
 ﻿using Orders.Shared.Entities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orders.Shared.DTOs;
+
 public class UserDTO : User
 {
     [DataType(DataType.Password)]

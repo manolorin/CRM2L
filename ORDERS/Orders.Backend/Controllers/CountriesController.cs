@@ -18,6 +18,14 @@ public class CountriesController : GenericController<Country>
     {
         _countriesUnitOfWork = countriesUnitOfWork;
     }
+
+    [AllowAnonymous]
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetComboAsync()
+    {
+        return Ok(await _countriesUnitOfWork.GetComboAsync());
+    }
+
     [HttpGet("totalRecords")]
     public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {
@@ -26,42 +34,30 @@ public class CountriesController : GenericController<Country>
         {
             return Ok(action.Result);
         }
-        else
-        {
-            return BadRequest();
-        }
+        return BadRequest();
     }
-
 
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
-        var action = await _countriesUnitOfWork.GetAsync(pagination);
-        if (action.WasSuccess)
+        var response = await _countriesUnitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
         {
-            return Ok(action.Result);
+            return Ok(response.Result);
         }
-        else
-        {
-            return BadRequest();
-        }
+        return BadRequest();
     }
 
     [HttpGet]
-    public  override async Task<IActionResult> GetAsync()
+    public override async Task<IActionResult> GetAsync()
     {
         var action = await _countriesUnitOfWork.GetAsync();
         if (action.WasSuccess)
         {
             return Ok(action.Result);
         }
-        else
-        {
-            return BadRequest(action.Message);
-        }
-
+        return BadRequest(action.Message);
     }
-
 
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
@@ -71,18 +67,6 @@ public class CountriesController : GenericController<Country>
         {
             return Ok(action.Result);
         }
-        else
-        {
-            return NotFound();
-        }
-
-    }
-
-    [AllowAnonymous]
-    [HttpGet("combo")]
-    public async Task<IActionResult> GetComboAsync()
-    {
-        var categories = await _countriesUnitOfWork.GetComboAsync();
-        return Ok(categories);
+        return NotFound();
     }
 }

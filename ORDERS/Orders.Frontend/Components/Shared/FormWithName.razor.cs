@@ -22,5 +22,4 @@ public partial class FormWithName<TModel> where TModel : IEntityWithName
     {
         editContext = new(Model);
     }
-
 }

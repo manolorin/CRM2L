@@ -13,8 +13,6 @@ public partial class CategoryEdit
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
-    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = null!;
-
     [Parameter] public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -56,7 +54,6 @@ public partial class CategoryEdit
 
     private void Return()
     {
-        MudDialog.Cancel();
-        //NavigationManager.NavigateTo("countries");
+        NavigationManager.NavigateTo("categories");
     }
 }
