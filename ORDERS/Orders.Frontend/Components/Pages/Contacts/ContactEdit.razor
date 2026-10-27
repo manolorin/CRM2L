@@ -1,0 +1,87 @@
+﻿@using Orders.Shared.Entities
+@page "/Contact/ContactEdit/{ContactId:int}"
+@if (loading)
+{
+    <Loading />    
+}
+else
+{
+    <EditForm Model="contact" OnValidSubmit="EditAsync">
+        <DataAnnotationsValidator />
+        <MudGrid>
+            <MudItem s="12" sm="6">
+                <MudCardContent>
+                    <MudTextField Label="Nombres"
+                                  @bind-Value="contact!.Name"
+                                  For="@(() => contact!.Name)"  AutoFocus />
+                    <MudTextField Label="Apellidos"
+                                  @bind-Value="contact.LastName"
+                                  For="@(() => contact.LastName)" />
+                    <MudTextField Label="Correo"
+                                  @bind-Value="contact.Email"
+                                  For="@(() => contact.Email)" />
+                    <MudTextField Label="Telefono"
+                                  @bind-Value="contact.PhoneNumber"
+                                  For="@(() => contact.PhoneNumber)"
+                                  InputType="InputType.Telephone" />
+                    <MudTextField Label="Dirección"
+                                  @bind-Value="contact.Address"
+                                  For="@(() => contact.Address)" />
+                </MudCardContent>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudCardContent>
+                    <MudAutocomplete T="Country"
+                                     Label="País"
+                                     Placeholder="--Seleccione un País--"
+                                     SearchFunc="SearchCountries"
+                                     Value="selectedCountry"
+                                     ValueChanged="CountryChangedAsync"
+                                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                    <MudAutocomplete T="State"
+                                     Label="Estado"
+                                     Placeholder="--Seleccione un Estado--"
+                                     SearchFunc="SearchStates"
+                                     Value="selectedState"
+                                     ValueChanged="StateChangedAsync"
+                                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                    <MudAutocomplete T="City"
+                                     Label="Ciudad"
+                                     Placeholder="--Seleccione una Ciudad--"
+                                     SearchFunc="SearchCity"
+                                     Value="selectedCity"
+                                     ValueChanged="CityChanged"
+                                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        <ItemTemplate Context="itemContext">
+                            @itemContext.Name
+                        </ItemTemplate>
+                    </MudAutocomplete>
+                </MudCardContent>
+                <MudItem xs="12" sm="6">
+                    <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                </MudItem>
+            </MudItem>
+            <MudGrid Justify="Justify.Center" Class="mt-4">
+                <MudItem>
+                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Check" Color="Color.Primary" OnClick="EditAsync">
+                        Guardar Cambios
+                    </MudButton>
+                </MudItem>
+
+                <MudItem>
+                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" OnClick="ReturnAction">
+                        Cancelar
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudGrid>
+    </EditForm>   
+}

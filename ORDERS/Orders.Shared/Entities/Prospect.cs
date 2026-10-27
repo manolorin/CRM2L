@@ -30,4 +30,7 @@ public class Prospect: IEntityWithName
     [Display(Name = "Activo")]
     bool Active = true;
 
+    public ICollection<Contact>? Contacts { get; set; }
+    public int ContactsNumber => Contacts == null ? 0 : Contacts.Count;
+
 }

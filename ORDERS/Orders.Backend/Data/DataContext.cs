@@ -13,9 +13,11 @@ public class DataContext : IdentityDbContext<User>
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<State> States { get; set; }
     public DbSet<Prospect> Prospects { get; set; }
+    public DbSet<Phase> Phases { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,6 +27,7 @@ public class DataContext : IdentityDbContext<User>
         modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<Prospect>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<State>().HasIndex(x => new { x.CountryId, x.Name }).IsUnique();
+        modelBuilder.Entity<Phase>().HasIndex(x => x.Name).IsUnique();
         DisableCascadingDelete(modelBuilder);
     }
 

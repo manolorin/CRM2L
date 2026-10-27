@@ -24,6 +24,7 @@ public partial class InputImg
                 using var stream = imagen.OpenReadStream(MaxFileSize);
                 using var ms = new MemoryStream();
                 await stream.CopyToAsync(ms);
+               
 
                 var arrBytes = ms.ToArray();
                 imageBase64 = Convert.ToBase64String(arrBytes);

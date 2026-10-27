@@ -200,6 +200,53 @@ namespace Orders.Backend.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("Orders.Shared.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProspectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ProspectId");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("Orders.Shared.Entities.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -219,6 +266,30 @@ namespace Orders.Backend.Migrations
                         .IsUnique();
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("Orders.Shared.Entities.Phase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Phases");
                 });
 
             modelBuilder.Entity("Orders.Shared.Entities.Prospect", b =>
@@ -434,6 +505,25 @@ namespace Orders.Backend.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Orders.Shared.Entities.Contact", b =>
+                {
+                    b.HasOne("Orders.Shared.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Orders.Shared.Entities.Prospect", "Prospect")
+                        .WithMany("Contacts")
+                        .HasForeignKey("ProspectId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Prospect");
+                });
+
             modelBuilder.Entity("Orders.Shared.Entities.Prospect", b =>
                 {
                     b.HasOne("Orders.Shared.Entities.City", "City")
@@ -477,6 +567,11 @@ namespace Orders.Backend.Migrations
             modelBuilder.Entity("Orders.Shared.Entities.Country", b =>
                 {
                     b.Navigation("States");
+                });
+
+            modelBuilder.Entity("Orders.Shared.Entities.Prospect", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 
             modelBuilder.Entity("Orders.Shared.Entities.State", b =>

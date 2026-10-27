@@ -20,7 +20,7 @@ else
                 <MudButton Variant="Variant.Outlined"
                            EndIcon="@Icons.Material.Filled.Add"
                            Href="/ProspectCreate"
-                           Color="Color.Info" >
+                           Color="Color.Success" >
                     Nuevo
                 </MudButton>
             </div>
@@ -29,10 +29,18 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Prospectos</MudTh>
+            <MudTh>Contactos</MudTh>
             <MudTh>Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
+             <MudTd DataLabel="Contactos">
+                <MudTooltip Text="Contactos">
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.PersonAddAlt1" Color="Color.Info" OnClick="@(() => ContactAction(@context))" style="width: 100px;">
+                        @context.ContactsNumber
+                    </MudButton>
+                </MudTooltip>
+            </MudTd>
             <MudTd>
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"

@@ -1,0 +1,54 @@
+﻿using Orders.Shared.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Orders.Shared.Entities
+{
+    public class Contact : IEntityWithName
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Nombres")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public string Name { get; set; } = null!;
+
+        [Display(Name = "Apellidos")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public string LastName { get; set; } = null!;
+
+        [EmailAddress(ErrorMessage = "Formato de correo inválido.")]
+        public string? Email { get; set; }
+
+        [Phone]
+        public string? PhoneNumber { get; set; }
+
+        [Display(Name = "Dirección")]
+        [MaxLength(200, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public string Address { get; set; } = null!;
+
+        [Display(Name = "Foto")]
+        public string? Photo { get; set; }
+
+        public City? City { get; set; }
+
+        [Display(Name = "Ciudad")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
+        public int CityId { get; set; }
+
+        public Prospect? Prospect { get; set; }
+
+        [Display(Name = "Prospecto/Cliente")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
+        public int ProspectId { get; set; }
+
+        [Display(Name = "Contacto")]
+        public string FullName => $"{Name} {LastName}";
+    }
+}

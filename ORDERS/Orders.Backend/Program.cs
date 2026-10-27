@@ -70,15 +70,20 @@ builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWor
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IPhasesRepository, PhasesRepository>();
 builder.Services.AddScoped<IProspectsRepository, ProspectsRepository>();
 builder.Services.AddScoped<IStatesRepository, StatesRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
+builder.Services.AddScoped<IContactsUnitOfWork, ContactsUnitOfWork>();
 builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();
 builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
+builder.Services.AddScoped<IPhasesUnitOfWork, PhasesUnitOfWork>();
 builder.Services.AddScoped<IProspectsUnitOfWork, ProspectsUnitOfWork>();
 builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();

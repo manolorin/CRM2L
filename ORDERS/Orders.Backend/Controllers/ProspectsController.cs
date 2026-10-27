@@ -12,8 +12,7 @@ namespace Orders.Backend.Controllers;
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
 
-public class 
-    ProspectsController : GenericController<Prospect>
+public class ProspectsController : GenericController<Prospect>
 {
     private readonly IProspectsUnitOfWork _prospectsUnitOfWork;
 
@@ -22,7 +21,7 @@ public class
         _prospectsUnitOfWork = prospectsUnitOfWork;
     }
 
-    [AllowAnonymous]
+
     [HttpPost]
     public override async Task<IActionResult> PostAsync(Prospect prospect)
     {
@@ -35,7 +34,7 @@ public class
         return BadRequest(action.Message);
     }
 
-    [AllowAnonymous]
+
     [HttpPut]
     public override async Task<IActionResult> PutAsync(Prospect prospect)
     {

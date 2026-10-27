@@ -29,6 +29,7 @@ public partial class ProspectCreate
         await LoadCountriesAsync();
     }
 
+
     private async Task CreateAsync()
     {
         var responseHttp = await Repository.PostAsync($"/api/prospects", prospect);
@@ -56,6 +57,7 @@ public partial class ProspectCreate
 
     private async Task LoadStatesAsyn(int countryId)
     {
+        await Task.Delay(5);
         var responseHttp = await Repository.GetAsync<List<State>>($"/api/states/combo/{countryId}");
         if (responseHttp.Error)
         {
@@ -68,6 +70,7 @@ public partial class ProspectCreate
 
     private async Task LoadCitiesAsyn(int stateId)
     {
+        await Task.Delay(5);
         var responseHttp = await Repository.GetAsync<List<City>>($"/api/cities/combo/{stateId}");
         if (responseHttp.Error)
         {

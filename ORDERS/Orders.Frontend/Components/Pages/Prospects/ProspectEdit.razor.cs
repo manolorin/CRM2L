@@ -74,6 +74,7 @@ public partial class ProspectEdit
         prospectDTO.Name = prospect.Name;
         prospectDTO.Address = prospect.Address;
         prospectDTO.CityId = prospect.CityId;
+        
         var responseHttp = await Repository.PutAsync($"/api/prospects", prospectDTO!);
 
         if (responseHttp.Error)
@@ -97,7 +98,7 @@ public partial class ProspectEdit
             Snackbar.Add(message!, Severity.Error);
             return;
         }
-        countries = responseHttp.Response;
+        countries = responseHttp.Response;  
     }
 
     private async Task LoadStatesAsyn(int countryId)

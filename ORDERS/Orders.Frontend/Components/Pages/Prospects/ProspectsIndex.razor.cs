@@ -122,6 +122,10 @@ namespace Orders.Frontend.Components.Pages.Prospects
 
             NavigationManager.NavigateTo($"/Prospect/ProspectEdit/{id}");
         }
+        private void ContactAction(Prospect prospect)
+        {
+            NavigationManager.NavigateTo($"/Prospect/details/{prospect.Id}");
+        }
         private async Task DeleteAsync(Prospect prospect)
         {
             var parameters = new DialogParameters

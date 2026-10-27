@@ -41,27 +41,7 @@ public class ProspectsRepository : GenericRepository<Prospect>, IProspectsReposi
         }
     }
 
-    public override async Task<ActionResponse<Prospect>> UpdateAsync(Prospect prospect)
-    {
-         _context.Update(prospect);
-
-        try
-        {
-            await _context.SaveChangesAsync();
-            return new ActionResponse<Prospect>
-            {
-                WasSuccess = true,
-                Result = prospect
-            };
-        }
-        catch (Exception exception)
-        {
-            return new ActionResponse<Prospect>
-            {
-                Message = "No se puede actualizar registro"
-            };
-        }
-    }
+   
 
     public override async Task<ActionResponse<Prospect>> GetAsync(int Id)
     {
@@ -98,7 +78,9 @@ public class ProspectsRepository : GenericRepository<Prospect>, IProspectsReposi
 
     public override async Task<ActionResponse<IEnumerable<Prospect>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.Prospects.AsQueryable();
+        var queryable = _context.Prospects
+             .Include(c => c.Contacts)
+            .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
@@ -139,5 +121,27 @@ public class ProspectsRepository : GenericRepository<Prospect>, IProspectsReposi
         }
     }
 
-   
+    public override async Task<ActionResponse<Prospect>> UpdateAsync(Prospect prospect)
+    {
+        _context.Update(prospect);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            return new ActionResponse<Prospect>
+            {
+                WasSuccess = true,
+                Result = prospect
+            };
+        }
+        catch (Exception exception)
+        {
+            return new ActionResponse<Prospect>
+            {
+                Message = "No se puede actualizar registro"
+            };
+        }
+    }
+
+
 }
